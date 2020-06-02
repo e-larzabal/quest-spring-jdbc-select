@@ -11,6 +11,7 @@ public class SchoolController {
 
     private SchoolRepository repository = new SchoolRepository();
 
+    // Exemple : http://localhost:8080/schools
     @GetMapping("/schools")
     public String getAll(Model model) {
 
@@ -19,14 +20,19 @@ public class SchoolController {
         return "school_get_all";
     }
 
+    // Exemple 1:  http://localhost:8080/school?id=5
+    // Exemple 2: http://localhost:8080/school?country=USA
     @GetMapping("/school")
-    public String getById(Model model, @RequestParam Long id) {
+    public String getById(Model model, @RequestParam(required = false) Long id, @RequestParam(required = false) String country) {
 
-        model.addAttribute("school", repository.findById(id));
+        if ( id != null ) { model.addAttribute("school", repository.findById(id)); return "school_get"; }
 
-        return "school_get";
+        if ( country != null ) { model.addAttribute("schools", repository.findByCountry(country)); return "school_get_all"; }
+
+        return "school_get_all";
     }
 
+    // Exemple : http://localhost:8080/schools/search?country=USA
     @GetMapping("/schools/search")
     public String getByCountry(Model model, @RequestParam String country) {
 
@@ -34,4 +40,5 @@ public class SchoolController {
 
         return "school_get_all";
     }
+
 }
