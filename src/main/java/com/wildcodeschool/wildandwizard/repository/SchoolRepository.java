@@ -43,7 +43,6 @@ public class SchoolRepository {
 
                 Schools.add(new School( id, name, capacity, country));
             }
-            statement.close();
 
             return Schools;
         } catch (SQLException e) {
@@ -75,7 +74,7 @@ public class SchoolRepository {
 
             School TheSchool = new School();
 
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 //Long id = resultSet.getLong("id");
                 String name = resultSet.getString("name");
                 Long capacity = resultSet.getLong("capacity");
@@ -86,7 +85,6 @@ public class SchoolRepository {
                 TheSchool.setCapacity(capacity);
                 TheSchool.setCountry(country);
             }
-            statement.close();
 
             return TheSchool;
         } catch (SQLException e) {
@@ -127,7 +125,6 @@ public class SchoolRepository {
 
                 Schools.add(new School( id, name, capacity, country));
             }
-            statement.close();
 
             return Schools;
         } catch (SQLException e) {

@@ -23,7 +23,7 @@ public class SchoolController {
     // Exemple 1:  http://localhost:8080/school?id=5
     // Exemple 2: http://localhost:8080/school?country=USA
     @GetMapping("/school")
-    public String getById(Model model, @RequestParam(required = false) Long id, @RequestParam(required = false) String country) {
+    public String getById(Model model, @RequestParam(value = "id", required = false) Long id, @RequestParam(value = "country", required = false) String country) {
 
         if ( id != null ) { model.addAttribute("school", repository.findById(id)); return "school_get"; }
 
